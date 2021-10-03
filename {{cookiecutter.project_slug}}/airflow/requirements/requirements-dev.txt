@@ -1,0 +1,4 @@
+jupyterlab
+ipython
+jupyter-book
+livereload

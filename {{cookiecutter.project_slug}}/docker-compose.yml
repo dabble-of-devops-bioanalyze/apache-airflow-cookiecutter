@@ -1,0 +1,153 @@
+version: '3.7'
+
+#####################################################################
+# Persist Postgresql to disk
+#
+#    volumes:
+#      - /path/to/postgresql-persistence:/bitnami/postgresql
+#####################################################################
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  airflow_scheduler_data:
+    driver: dev
+  airflow_worker_data:
+    driver: dev
+  airflow_jupyter_data:
+    driver: dev
+  airflow_data:
+    driver: dev
+  airflow_postgresql_data:
+    driver: dev
+  biohub_postgresql_data:
+    driver: dev
+  redis_data:
+    driver: dev
+  pgadmin:
+    driver: dev
+
+
+services:
+
+  ############################################
+  # DEV SERVICES
+  ############################################
+
+  # This one is an additional airflow webserver
+  # Let the server run to start and configure airflow
+  # Then run jupyterhub with
+  # docker-compose -f docker-compose.dev.yml exec bash -c "jupyter lab --ip 0.0.0.0 --allow-root"
+  jupyter:
+    build:
+      context: .
+      dockerfile: docker/dev/airflow/Dockerfile
+      args:
+        AIRFLOW_TAG: "{{cookiecutter.airflow_tag}}"
+    env_file:
+      - ./.envs/.dev/.airflow
+    ports:
+      - '8888:8888'
+    volumes:
+      - airflow_data:/bitnami
+      - ./airflow/requirements:/bitnami/python
+      - ./airflow/dags:/opt/bitnami/airflow/dags:z
+      - ./airflow/plugins:/opt/bitnami/airflow/plugins:z
+    networks:
+      - frontend
+      - backend
+    command: |
+      bash -c "jupyter lab --ip 0.0.0.0 --port 8888 --allow-root"
+
+
+  ############################################
+  # AIRFLOW SERVICES
+  ############################################
+
+  airflow-postgresql:
+    image: 'docker.io/bitnami/postgresql:10-debian-10'
+    volumes:
+      - 'airflow_postgresql_data:/bitnami/postgresql'
+      - ./backups:/backups
+    env_file:
+      - ./.envs/.dev/.airflow
+    networks:
+      - backend
+      - frontend
+
+  redis:
+    image: docker.io/bitnami/redis:6.0-debian-10
+    volumes:
+      - 'redis_data:/bitnami'
+    env_file:
+      - ./.envs/.dev/.airflow
+    networks:
+      - backend
+      - frontend
+
+  airflow-scheduler:
+    build:
+      context: .
+      dockerfile: docker/dev/airflow-scheduler/Dockerfile
+      args:
+        AIRFLOW_TAG: "{{cookiecutter.airflow_tag}}"
+    env_file:
+      - ./.envs/.dev/.airflow
+    volumes:
+      - airflow_scheduler_data:/bitnami
+      - ./airflow/requirements:/bitnami/python
+      - ./airflow/dags:/opt/bitnami/airflow/dags
+      - ./airflow/plugins:/opt/bitnami/airflow/plugins
+    networks:
+      - backend
+      - frontend
+
+  airflow-worker:
+    build:
+      context: .
+      dockerfile: docker/dev/airflow-worker/Dockerfile
+      args:
+        AIRFLOW_TAG: "{{cookiecutter.airflow_tag}}"
+    env_file:
+      - ./.envs/.dev/.airflow
+    volumes:
+      - airflow_worker_data:/bitnami
+      - ./airflow/requirements:/bitnami/python
+      - ./airflow/dags:/opt/bitnami/airflow/dags
+      - ./airflow/plugins:/opt/bitnami/airflow/plugins
+    networks:
+      - backend
+      - frontend
+
+  airflow:
+    build:
+      context: .
+      dockerfile: docker/dev/airflow/Dockerfile
+      args:
+        AIRFLOW_TAG: "{{cookiecutter.airflow_tag}}"
+    env_file:
+      - ./.envs/.dev/.airflow
+    ports:
+      - '8080:8080'
+    volumes:
+      - airflow_data:/bitnami
+      - ./airflow/requirements:/bitnami/python
+      - ./airflow/dags:/opt/bitnami/airflow/dags:z
+      - ./airflow/plugins:/opt/bitnami/airflow/plugins:z
+    networks:
+      - frontend
+      - backend
+
+  ############################################
+  # Adminer to view the databases
+  ############################################
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8085:8080"
+    networks:
+      - backend

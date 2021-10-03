@@ -1,0 +1,110 @@
+version: '3.7'
+
+# From here - https://github.com/bitnami/bitnami-docker-airflow
+
+#####################################################################
+# Persist Postgresql to disk
+#
+#    volumes:
+#      - /path/to/postgresql-persistence:/bitnami/postgresql
+#####################################################################
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  airflow_scheduler_data:
+    driver: local
+  airflow_worker_data:
+    driver: local
+  airflow_jupyter_data:
+    driver: local
+  airflow_data:
+    driver: local
+  airflow_postgresql_data:
+    driver: local
+  biohub_postgresql_data:
+    driver: local
+  redis_data:
+    driver: local
+  pgadmin:
+    driver: local
+
+
+services:
+
+  ############################################
+  # AIRFLOW SERVICES
+  ############################################
+
+  airflow-postgresql:
+    image: 'docker.io/bitnami/postgresql:10-debian-10'
+    volumes:
+      - 'airflow_postgresql_data:/bitnami/postgresql'
+      - ./backups:/backups
+    env_file:
+      - ./.envs/.prod/.airflow
+    networks:
+      - backend
+      - frontend
+
+  redis:
+    image: docker.io/bitnami/redis:6.0-debian-10
+    volumes:
+      - 'redis_data:/bitnami'
+    env_file:
+      - ./.envs/.prod/.airflow
+    networks:
+      - backend
+      - frontend
+
+  airflow-scheduler:
+    build:
+      context: .
+      dockerfile: docker/prod/airflow-scheduler/Dockerfile
+      args:
+        AIRFLOW_TAG: "{{cookiecutter.airflow_tag}}"
+    env_file:
+      - ./.envs/.prod/.airflow
+    networks:
+      - backend
+      - frontend
+
+  airflow-worker:
+    build:
+      context: .
+      dockerfile: docker/prod/airflow-worker/Dockerfile
+      args:
+        AIRFLOW_TAG: "{{cookiecutter.airflow_tag}}"
+    env_file:
+      - ./.envs/.prod/.airflow
+    networks:
+      - backend
+      - frontend
+
+  airflow:
+    build:
+      context: .
+      dockerfile: docker/prod/airflow/Dockerfile
+      args:
+        AIRFLOW_TAG: "{{cookiecutter.airflow_tag}}"
+    env_file:
+      - ./.envs/.prod/.airflow
+    ports:
+      - '8080:8080'
+    networks:
+      - frontend
+      - backend
+
+  ############################################
+  # Adminer to view the databases
+  ############################################
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8085:8080"
+    networks:
+      - backend

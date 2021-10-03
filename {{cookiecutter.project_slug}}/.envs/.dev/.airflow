@@ -1,0 +1,34 @@
+#------------------------------------------------------------------------------
+# Airflow Setup Variables
+# Docs at https://github.com/bitnami/bitnami-docker-airflow
+#------------------------------------------------------------------------------
+
+ENV=dev
+
+AIRFLOW_DATABASE_NAME=bitnami_airflow
+AIRFLOW_DATABASE_USERNAME=bn_airflow
+AIRFLOW_DATABASE_PASSWORD=bitnami1
+AIRFLOW_DB_URL="postgresql+psycopg2://bn_airflow:bitnami1@airflow-postgresql:5432/bitnami_airflow"
+
+# https://airflow.apache.org/docs/apache-airflow/stable/security/secrets/fernet.html
+AIRFLOW_FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
+
+AIRFLOW_EXECUTOR=CeleryExecutor
+AIRFLOW_DATABASE_HOST=airflow-postgresql
+AIRFLOW_USERNAME=admin
+AIRFLOW_PASSWORD=bitnami
+AIRFLOW_LOAD_EXAMPLES=no
+
+# Postgresql Database Initialization
+
+POSTGRESQL_DATABASE=bitnami_airflow
+POSTGRESQL_USERNAME=bn_airflow
+POSTGRESQL_PASSWORD=bitnami1
+
+# For redis
+ALLOW_EMPTY_PASSWORD=yes
+
+# Custom Airflow Config
+AIRFLOW__WEBSERVER__RELOAD_ON_PLUGIN_CHANGE=True
+AIRFLOW_WEBSERVER_RELOAD_ON_PLUGIN_CHANGE=True
+AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
