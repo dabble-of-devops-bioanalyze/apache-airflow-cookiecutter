@@ -36,6 +36,13 @@ See the [Airflow as Python Plugins](https://airflow.apache.org/docs/apache-airfl
 
 You can also use the [BioAnalyze Apache Airflow Cookiecutter](https://github.com/dabble-of-devops-bioanalyze/apache-airflow-plugin-cookiecutter) with or without github submodules.
 
+Airflow uses [Flask AppBuilder](https://flask-appbuilder.readthedocs.io/en/latest/templates.html) as it's base. This gives you lots of neat functionality.
+
+- [FAB Base Views](https://flask-appbuilder.readthedocs.io/en/latest/views.html)
+- [FAB Model Views](https://flask-appbuilder.readthedocs.io/en/latest/quickhowto.html)
+- [FAB REST Api](https://flask-appbuilder.readthedocs.io/en/latest/rest_api.html)
+- [FAB Templates](https://flask-appbuilder.readthedocs.io/en/latest/templates.html)
+
 ## Documenting your project
 
 I didn't include any documentation bundles, but I suggest [jupyter-book](https://pypi.org/project/jupyter-book/) or [sphinx](https://www.sphinx-doc.org/en/master/usage/quickstart.html). Both are installed as a part of the `airflow/requirements/requirements-dev.txt`. Below are examples of how you would bootstrap with either of these.
