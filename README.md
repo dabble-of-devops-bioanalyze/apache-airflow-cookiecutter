@@ -18,6 +18,7 @@ You must have the Python package [cookiecutter](https://cookiecutter.readthedocs
 
 [Airflow Docs](https://airflow.apache.org/docs/apache-airflow/stable)
 [Airflow Plugins](https://airflow.apache.org/docs/apache-airflow/stable/plugins.html?highlight=plugins)
+[Airflow as Python Plugins](https://airflow.apache.org/docs/apache-airflow/stable/plugins.html#plugins-as-python-packages)
 
 [Bitnami - Airflow Tags](https://hub.docker.com/r/bitnami/airflow/tags?page=1&ordering=last_updated)
 [Bitnami - Airflow Worker Tags](https://hub.docker.com/r/bitnami/airflow-worker/tags?page=1&ordering=last_updated)
@@ -30,6 +31,10 @@ You must have the Python package [cookiecutter](https://cookiecutter.readthedocs
 While you're developing the simplest way to add your plugins directory to `/opt/bitnami/airflow/plugins`. The dev stack is set to have the airflow webserver restart when anything changes.
 
 When deploying to production I always recommend that you build your image with the plugins and dags copied over into the docker image. You can find out more about this in the [Airflow Docker Images Docs](https://airflow.apache.org/docs/docker-stack/build.html). These docs relate to the the official Airflow images. The images used here are the Bitnami images.
+
+See the [Airflow as Python Plugins](https://airflow.apache.org/docs/apache-airflow/stable/plugins.html#plugins-as-python-packages) docs for more information.
+
+You can also use the [BioAnalyze Apache Airflow Cookiecutter](https://github.com/dabble-of-devops-bioanalyze/apache-airflow-plugin-cookiecutter) with or without github submodules.
 
 ## Documenting your project
 

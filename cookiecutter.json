@@ -1,14 +1,18 @@
 {
   "full_name": "Jillian Rowe",
   "email": "jillian@dabbleofdevops.com",
-  "github_username": "jerowe",
+  "github_username": "dabble-of-devops-bioanalyze",
   "project_name": "Airflow Project",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "plugin_name": "MyAirflowPlugin",
+  "plugin_slug": "{{ cookiecutter.plugin_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "plugin_class": "{{ cookiecutter.plugin_name.upper().replace(' ', '').replace('-', '') }}",
   "project_short_description": "Airflow Project",
   "pypi_username": "{{ cookiecutter.github_username }}",
   "airflow_tag": "2.0.1-debian-10-r46",
   "use_pypi_deployment_with_travis": "y",
   "add_pyup_badge": "n",
   "create_author_file": "y",
+  "command_line_interface": ["Click", "Argparse", "No command-line interface"],
   "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
 }
