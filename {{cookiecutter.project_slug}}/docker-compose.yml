@@ -13,21 +13,21 @@ networks:
 
 volumes:
   airflow_scheduler_data:
-    driver: dev
+    driver: local
   airflow_worker_data:
-    driver: dev
+    driver: local
   airflow_jupyter_data:
-    driver: dev
+    driver: local
   airflow_data:
-    driver: dev
+    driver: local
   airflow_postgresql_data:
-    driver: dev
+    driver: local
   biohub_postgresql_data:
-    driver: dev
+    driver: local
   redis_data:
-    driver: dev
+    driver: local
   pgadmin:
-    driver: dev
+    driver: local
 
 
 services:
