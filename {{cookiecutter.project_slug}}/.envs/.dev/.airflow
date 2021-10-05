@@ -12,6 +12,10 @@ AIRFLOW_DB_URL="postgresql+psycopg2://bn_airflow:bitnami1@airflow-postgresql:543
 
 # https://airflow.apache.org/docs/apache-airflow/stable/security/secrets/fernet.html
 AIRFLOW_FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
+AIRFLOW_SECRET_KEY=a25mQ1FHTUh3MnFRSk5KMEIyVVU2YmN0VGRyYTVXY08=
+
+# this is needed on newer versions of airflow
+AIRFLOW_WEBSERVER_HOST=airflow
 
 AIRFLOW_EXECUTOR=CeleryExecutor
 AIRFLOW_DATABASE_HOST=airflow-postgresql

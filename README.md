@@ -26,6 +26,12 @@ You must have the Python package [cookiecutter](https://cookiecutter.readthedocs
 
 [Docker Compose Specs](https://docs.docker.com/compose/compose-file/compose-file-v3/)
 
+## Troubleshooting
+
+If you're having trouble starting up the stack it is likely that a configuration value has changed. The best place to see the most up to date variables is the [bitnami docs](https://github.com/bitnami/bitnami-docker-airflow).
+
+Check out [the docker compose](https://github.com/bitnami/bitnami-docker-airflow/blob/master/docker-compose.yml) file and make sure your `.envs/.local/.airflow` file matches.
+
 ## Plugins Strategies
 
 While you're developing the simplest way to add your plugins directory to `/opt/bitnami/airflow/plugins`. The dev stack is set to have the airflow webserver restart when anything changes.

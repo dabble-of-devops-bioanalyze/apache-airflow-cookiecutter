@@ -9,7 +9,7 @@
   "plugin_class": "{{ cookiecutter.plugin_name.upper().replace(' ', '').replace('-', '') }}",
   "project_short_description": "Airflow Project",
   "pypi_username": "{{ cookiecutter.github_username }}",
-  "airflow_tag": "2.0.1-debian-10-r46",
+  "airflow_tag": "2-debian-10",
   "use_pypi_deployment_with_travis": "y",
   "add_pyup_badge": "n",
   "create_author_file": "y",
