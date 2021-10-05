@@ -34,6 +34,10 @@ Bitnami uses [rolling tags](https://docs.bitnami.com/tutorials/understand-rollin
 
 Releases are matched against the `airflow_tag`.
 
+```
+cookiecutter https://github.com/dabble-of-devops-bioanalyze/apache-airflow-cookiecutter/archive/refs/tags/2.1.4-debian-10-r10.zip
+```
+
 ## Troubleshooting
 
 If you're having trouble starting up the stack it is likely that a configuration value has changed. The best place to see the most up to date variables is the [bitnami docs](https://github.com/bitnami/bitnami-docker-airflow).
