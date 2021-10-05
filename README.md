@@ -26,6 +26,14 @@ You must have the Python package [cookiecutter](https://cookiecutter.readthedocs
 
 [Docker Compose Specs](https://docs.docker.com/compose/compose-file/compose-file-v3/)
 
+## Tags
+
+Bitnami uses [rolling tags](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/), which means that you are not necessarily getting the same image when you reuse a tag. Most of the time this is fine and will keep your images more secure. Occasionally a bot goes haywire and it's troublesome. Just update the `airflow_tag` in the `cookiecutter.json`. 
+
+## Releases
+
+Releases are matched against the `airflow_tag`.
+
 ## Troubleshooting
 
 If you're having trouble starting up the stack it is likely that a configuration value has changed. The best place to see the most up to date variables is the [bitnami docs](https://github.com/bitnami/bitnami-docker-airflow).
